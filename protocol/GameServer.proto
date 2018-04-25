@@ -1,0 +1,8 @@
+package com.ftiger.www.game.protocol;
+
+option java_package = "com.ftiger.www.game.protocol";
+
+message GameServer {
+    optional int32 code = 1;
+    optional string context = 2;
+}

@@ -1,6 +1,6 @@
 package com.ftiger.www.server;
 
-import com.ftiger.www.common.pipeline.ChannelServerInitializer;
+import com.ftiger.www.common.netty.pipeline.ChannelServerInitializer;
 import com.ftiger.www.common.utils.ThreadPoolUtil;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
