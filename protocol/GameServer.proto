@@ -4,5 +4,6 @@ option java_package = "com.ftiger.www.game.protocol";
 
 message GameServer {
     optional int32 code = 1;
-    optional string context = 2;
+    optional int64 id = 2;
+    optional string context = 3;
 }

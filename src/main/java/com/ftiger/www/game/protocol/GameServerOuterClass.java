@@ -28,15 +28,24 @@ public final class GameServerOuterClass {
     int getCode();
 
     /**
-     * <code>optional string context = 2;</code>
+     * <code>optional int64 id = 2;</code>
+     */
+    boolean hasId();
+    /**
+     * <code>optional int64 id = 2;</code>
+     */
+    long getId();
+
+    /**
+     * <code>optional string context = 3;</code>
      */
     boolean hasContext();
     /**
-     * <code>optional string context = 2;</code>
+     * <code>optional string context = 3;</code>
      */
     java.lang.String getContext();
     /**
-     * <code>optional string context = 2;</code>
+     * <code>optional string context = 3;</code>
      */
     com.google.protobuf.ByteString
         getContextBytes();
@@ -55,6 +64,7 @@ public final class GameServerOuterClass {
     }
     private GameServer() {
       code_ = 0;
+      id_ = 0L;
       context_ = "";
     }
 
@@ -94,9 +104,14 @@ public final class GameServerOuterClass {
               code_ = input.readInt32();
               break;
             }
-            case 18: {
-              com.google.protobuf.ByteString bs = input.readBytes();
+            case 16: {
               bitField0_ |= 0x00000002;
+              id_ = input.readInt64();
+              break;
+            }
+            case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000004;
               context_ = bs;
               break;
             }
@@ -140,16 +155,31 @@ public final class GameServerOuterClass {
       return code_;
     }
 
-    public static final int CONTEXT_FIELD_NUMBER = 2;
-    private volatile java.lang.Object context_;
+    public static final int ID_FIELD_NUMBER = 2;
+    private long id_;
     /**
-     * <code>optional string context = 2;</code>
+     * <code>optional int64 id = 2;</code>
      */
-    public boolean hasContext() {
+    public boolean hasId() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>optional string context = 2;</code>
+     * <code>optional int64 id = 2;</code>
+     */
+    public long getId() {
+      return id_;
+    }
+
+    public static final int CONTEXT_FIELD_NUMBER = 3;
+    private volatile java.lang.Object context_;
+    /**
+     * <code>optional string context = 3;</code>
+     */
+    public boolean hasContext() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional string context = 3;</code>
      */
     public java.lang.String getContext() {
       java.lang.Object ref = context_;
@@ -166,7 +196,7 @@ public final class GameServerOuterClass {
       }
     }
     /**
-     * <code>optional string context = 2;</code>
+     * <code>optional string context = 3;</code>
      */
     public com.google.protobuf.ByteString
         getContextBytes() {
@@ -198,7 +228,10 @@ public final class GameServerOuterClass {
         output.writeInt32(1, code_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, context_);
+        output.writeInt64(2, id_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, context_);
       }
       unknownFields.writeTo(output);
     }
@@ -213,7 +246,11 @@ public final class GameServerOuterClass {
           .computeInt32Size(1, code_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, context_);
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, id_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, context_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -236,6 +273,11 @@ public final class GameServerOuterClass {
         result = result && (getCode()
             == other.getCode());
       }
+      result = result && (hasId() == other.hasId());
+      if (hasId()) {
+        result = result && (getId()
+            == other.getId());
+      }
       result = result && (hasContext() == other.hasContext());
       if (hasContext()) {
         result = result && getContext()
@@ -255,6 +297,11 @@ public final class GameServerOuterClass {
       if (hasCode()) {
         hash = (37 * hash) + CODE_FIELD_NUMBER;
         hash = (53 * hash) + getCode();
+      }
+      if (hasId()) {
+        hash = (37 * hash) + ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getId());
       }
       if (hasContext()) {
         hash = (37 * hash) + CONTEXT_FIELD_NUMBER;
@@ -373,7 +420,7 @@ public final class GameServerOuterClass {
       }
 
       // Construct using com.ftiger.www.game.protocol.GameServerOuterClass.GameServer.newBuilder()
-      public Builder() {
+      private Builder() {
         maybeForceBuilderInitialization();
       }
 
@@ -391,8 +438,10 @@ public final class GameServerOuterClass {
         super.clear();
         code_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        context_ = "";
+        id_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000002);
+        context_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -423,6 +472,10 @@ public final class GameServerOuterClass {
         result.code_ = code_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
+        }
+        result.id_ = id_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
         }
         result.context_ = context_;
         result.bitField0_ = to_bitField0_;
@@ -470,8 +523,11 @@ public final class GameServerOuterClass {
         if (other.hasCode()) {
           setCode(other.getCode());
         }
+        if (other.hasId()) {
+          setId(other.getId());
+        }
         if (other.hasContext()) {
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000004;
           context_ = other.context_;
           onChanged();
         }
@@ -535,15 +591,47 @@ public final class GameServerOuterClass {
         return this;
       }
 
-      private java.lang.Object context_ = "";
+      private long id_ ;
       /**
-       * <code>optional string context = 2;</code>
+       * <code>optional int64 id = 2;</code>
        */
-      public boolean hasContext() {
+      public boolean hasId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>optional string context = 2;</code>
+       * <code>optional int64 id = 2;</code>
+       */
+      public long getId() {
+        return id_;
+      }
+      /**
+       * <code>optional int64 id = 2;</code>
+       */
+      public Builder setId(long value) {
+        bitField0_ |= 0x00000002;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int64 id = 2;</code>
+       */
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        id_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object context_ = "";
+      /**
+       * <code>optional string context = 3;</code>
+       */
+      public boolean hasContext() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional string context = 3;</code>
        */
       public java.lang.String getContext() {
         java.lang.Object ref = context_;
@@ -560,7 +648,7 @@ public final class GameServerOuterClass {
         }
       }
       /**
-       * <code>optional string context = 2;</code>
+       * <code>optional string context = 3;</code>
        */
       public com.google.protobuf.ByteString
           getContextBytes() {
@@ -576,36 +664,36 @@ public final class GameServerOuterClass {
         }
       }
       /**
-       * <code>optional string context = 2;</code>
+       * <code>optional string context = 3;</code>
        */
       public Builder setContext(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000004;
         context_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string context = 2;</code>
+       * <code>optional string context = 3;</code>
        */
       public Builder clearContext() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         context_ = getDefaultInstance().getContext();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string context = 2;</code>
+       * <code>optional string context = 3;</code>
        */
       public Builder setContextBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000004;
         context_ = value;
         onChanged();
         return this;
@@ -674,9 +762,9 @@ public final class GameServerOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\020GameServer.proto\022\034com.ftiger.www.game." +
-      "protocol\"+\n\nGameServer\022\014\n\004code\030\001 \001(\005\022\017\n\007" +
-      "context\030\002 \001(\tB\036\n\034com.ftiger.www.game.pro" +
-      "tocol"
+      "protocol\"7\n\nGameServer\022\014\n\004code\030\001 \001(\005\022\n\n\002" +
+      "id\030\002 \001(\003\022\017\n\007context\030\003 \001(\tB\036\n\034com.ftiger." +
+      "www.game.protocol"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -695,7 +783,7 @@ public final class GameServerOuterClass {
     internal_static_com_ftiger_www_game_protocol_GameServer_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ftiger_www_game_protocol_GameServer_descriptor,
-        new java.lang.String[] { "Code", "Context", });
+        new java.lang.String[] { "Code", "Id", "Context", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

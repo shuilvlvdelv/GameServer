@@ -11,13 +11,14 @@ import java.util.Map;
  */
 @RedisHash("users")
 public class UserRedisDO implements Serializable {
-    @Id
     private String channelId;
     private Map<String,String> groupMap;
+    @Id
     private Long id;
     private String nickName;
     private String avatar;
     private Long gold;
+    private Map<String,Object> context;
 
     public String getChannelId() {
         return channelId;
@@ -67,6 +68,14 @@ public class UserRedisDO implements Serializable {
         this.gold = gold;
     }
 
+    public Map<String, Object> getContext() {
+        return context;
+    }
+
+    public void setContext(Map<String, Object> context) {
+        this.context = context;
+    }
+
     @Override
     public String toString() {
         return "UserRedisDO{" +
@@ -76,6 +85,7 @@ public class UserRedisDO implements Serializable {
                 ", nickName='" + nickName + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", gold=" + gold +
+                ", context=" + context +
                 '}';
     }
 }

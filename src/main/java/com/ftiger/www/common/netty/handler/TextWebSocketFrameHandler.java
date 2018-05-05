@@ -1,10 +1,10 @@
 package com.ftiger.www.common.netty.handler;
 
 import com.ftiger.www.common.manage.ChannelManager;
+import com.ftiger.www.common.router.RouterTransponder;
 import com.ftiger.www.game.protocol.GameServerOuterClass;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 
 /**
@@ -18,20 +18,20 @@ public class TextWebSocketFrameHandler
   public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
     if (evt == WebSocketServerProtocolHandler.ServerHandshakeStateEvent.HANDSHAKE_COMPLETE) {
       ChannelManager.put(ctx.channel().id().asLongText(), ctx.channel());
+      sendConnSuccess(ctx.channel().id().asLongText());
     } else {
       super.userEventTriggered(ctx, evt);
     }
   }
 
   @Override
-  protected void channelRead0(ChannelHandlerContext ctx, GameServerOuterClass.GameServer msg)
-      throws Exception {
-
+  protected void channelRead0(ChannelHandlerContext ctx, GameServerOuterClass.GameServer msg) {
+    RouterTransponder.push(ctx.channel().id().asLongText(),msg);
   }
 
   private void sendConnSuccess(String channelId) {
     GameServerOuterClass.GameServer gameServer =
-        new GameServerOuterClass.GameServer.Builder().setCode(10000).build();
+            GameServerOuterClass.GameServer.newBuilder().setCode(10000).build();
     ChannelManager.send(channelId, gameServer);
   }
 }
