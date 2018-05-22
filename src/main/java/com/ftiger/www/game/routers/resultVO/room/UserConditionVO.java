@@ -1,17 +1,24 @@
-package com.ftiger.www.common.entity;
+package com.ftiger.www.game.routers.resultVO.room;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.redis.core.RedisHash;
 import java.util.List;
 
 /**
  * @author 宋旭源
  */
-public class UserRoomInfo {
+public class UserConditionVO {
+  private Integer seat;
   private Long id;
   private Integer status;
   private List<Integer> pukers;
   private String avatar;
+
+  public Integer getSeat() {
+    return seat;
+  }
+
+  public void setSeat(Integer seat) {
+    this.seat = seat;
+  }
 
   public Long getId() {
     return id;
@@ -47,8 +54,9 @@ public class UserRoomInfo {
 
     @Override
     public String toString() {
-        return "UserRoomInfo{" +
-                "id=" + id +
+        return "UserConditionVO{" +
+                "seat=" + seat +
+                ", id=" + id +
                 ", status=" + status +
                 ", pukers=" + pukers +
                 ", avatar='" + avatar + '\'' +

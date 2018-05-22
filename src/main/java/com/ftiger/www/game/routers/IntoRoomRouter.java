@@ -1,17 +1,15 @@
 package com.ftiger.www.game.routers;
 
 import com.ftiger.www.common.annotation.Router;
-import com.ftiger.www.common.contant.StatusConst;
-import com.ftiger.www.common.entity.UserRoomInfo;
+import com.ftiger.www.common.manage.ChannelManager;
 import com.ftiger.www.common.router.BaseRouter;
+import com.ftiger.www.game.protocol.GameServerOuterClass;
 import com.ftiger.www.game.redis.obj.RoomInfoDO;
 import com.ftiger.www.game.redis.obj.UserRedisDO;
+import com.ftiger.www.game.routers.resultVO.room.RoomConditionVO;
 import com.ftiger.www.game.services.RoomService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,10 +24,11 @@ public class IntoRoomRouter implements BaseRouter {
 
   @Override
   public void exec(UserRedisDO channelContext, Map<String, Object> msg) {
-    RoomInfoDO roomInfoDO = roomService.getIdleEoom();
-    UserRoomInfo userRoomInfo = new UserRoomInfo();
-    BeanUtils.copyProperties(channelContext, userRoomInfo);
-    userRoomInfo.setStatus(StatusConst.USER_ROOM_STATUS_WAIT);
-    roomInfoDO.getUserRoomInfos().add(userRoomInfo);
+    // 加入房间
+    RoomConditionVO roomConditionVO = roomService.joinRoom(channelContext);
+
+    // 返回房间状况
+    ChannelManager.send(channelContext, 10001, roomConditionVO);
+
   }
 }
